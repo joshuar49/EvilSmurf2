@@ -26,7 +26,7 @@ int main(int argc, char **argv)
         status = write(s, "hello! I have sent a message from the SERVER", 6);
     }
 
-    if( status < 0 ) perror("uh oh");
+    if( status < 0 ) perror("uh oh cant connect to the server!");
 
     close(s);
     return 0;
