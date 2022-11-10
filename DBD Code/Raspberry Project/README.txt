@@ -1,4 +1,5 @@
 Raspberry Pi Environment Recreation
+Youtube Video is found here: https://youtu.be/6AaOwTS4LvY
 
 NOTE to downlaod this read me file in raspberry pi you will need to run this command:
 
