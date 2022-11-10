@@ -8,7 +8,7 @@ int main(int argc, char **argv)
 {
     struct sockaddr_rc addr = { 0 };
     int s, status;
-    char dest[18] = "58:11:22:62:56:E3"; // this is the address for the asus dongle
+    char dest[18] = "REPALCE AND ENTER MAC ADDRESS HERE"; // this is the address for your bluetooth device!!!!! remember to add the MAC address before compiling
 
     // allocate a socket
     s = socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM);
