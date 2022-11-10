@@ -3,7 +3,7 @@ Youtube Video is found here: https://youtu.be/6AaOwTS4LvY
 
 NOTE to downlaod this read me file in raspberry pi you will need to run this command:
 
-wget wget https://raw.githubusercontent.com/joshuar49/EvilSmurf2/main/DBD%20Code/Raspberry%20Project/README.txt
+wget https://raw.githubusercontent.com/joshuar49/EvilSmurf2/main/DBD%20Code/Raspberry%20Project/README.txt
 
 This file will help you recreate the environment that I have
 This involves downloading the pi.sh from our Github page using the following command:
