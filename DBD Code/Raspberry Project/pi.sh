@@ -12,5 +12,6 @@ echo "Downloading needed Github files from Deep Blue Dev's Repo\n"
 
 wget https://raw.githubusercontent.com/joshuar49/EvilSmurf2/main/DBD%20Code/Raspberry%20Project/rf_client.c
 wget https://raw.githubusercontent.com/joshuar49/EvilSmurf2/main/DBD%20Code/Raspberry%20Project/rf_server.c
+wget https://raw.githubusercontent.com/joshuar49/EvilSmurf2/main/DBD%20Code/Raspberry%20Project/Makefile
 
 echo "Files from repo have been downloaded sucessfully!"
