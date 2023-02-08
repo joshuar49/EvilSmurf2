@@ -11,9 +11,19 @@ wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project
 ```bash 
 wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/pi.sh
 ```
+> **NOTE: once you have downloaded the `pi.sh` script you will then need to run this command
+to execute the shell script:**
+```bash 
+chmod u+rwx pi.sh
+```
+- This ill allow you to execute the file without issue
 
-- after downloading and runnig the script using the following command: `. pi.sh`
+- After downloading and runnig the script using the following command: `. pi.sh` or `./pi.sh`
+    - If you chose the last option you will need to change directories into "DBD2" like this:
+    `cd DBD2` abd then you should be good to go!
+
 > **note: you have to be a root/super user in order to recreate the environment**
+
 - use the following command: `sudo -i`
 
 ## updateing your raspberry pi
