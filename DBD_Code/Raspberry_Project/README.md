@@ -9,7 +9,7 @@ wget https://raw.githubusercontent.com/joshuar49/evilsmurf2/main/dbd%20code/rasp
 - this file will help you recreate the environment that i have
     - this involves downloading the pi.sh from our github page using the following command:
 ```bash 
-wget https://raw.githubusercontent.com/joshuar49/evilsmurf2/main/dbd%20code/raspberry%20project/pi.sh
+wget https://raw.githubusercontent.com/joshuar49/EvilSmurf2/tree/main/DBD_Code/Raspberry Project/pi.sh
 ```
 
 - after downloading and runnig the script using the following command: `. pi.sh`
