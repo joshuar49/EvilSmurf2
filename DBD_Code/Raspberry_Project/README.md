@@ -4,12 +4,12 @@
 > **NOTE: to downlaod this read me file in raspberry pi you will need to run this command**
 
 ```bash 
-wget https://raw.githubusercontent.com/joshuar49/evilsmurf2/main/dbd%20code/raspberry%20project/readme.txt
+wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/README.md
 ```
 - this file will help you recreate the environment that i have
     - this involves downloading the pi.sh from our github page using the following command:
 ```bash 
-wget https://raw.githubusercontent.com/joshuar49/EvilSmurf2/tree/main/DBD_Code/Raspberry Project/pi.sh
+wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/pi.sh
 ```
 
 - after downloading and runnig the script using the following command: `. pi.sh`
