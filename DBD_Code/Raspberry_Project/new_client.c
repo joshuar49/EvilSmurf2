@@ -10,7 +10,7 @@ int main(int argc, char **argv)
 {
     struct sockaddr_rc addr = { 0 }; // creates the structure for THIS device
     int s, status;
-    char dest[18] = "58:11:22:62:56:CD"; // mac of the kali machine
+    char dest[18] = "58:11:22:62:56:E3"; // mac of the PI machine
     char buf[BUF];// inits the buffer 
 
     s = socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM);
