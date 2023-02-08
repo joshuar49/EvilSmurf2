@@ -239,7 +239,7 @@ directoy as `root`
 - Here is the command you would want to run to move the `.service` file:
 ```bash 
 sudo su 
-mv /home/pi/DBD2/server2 /etc/systemd/system/
+mv /home/pi/DBD2/btstart.service /etc/systemd/system/
 ```
 - Once you have sucessfully moved the file you can then run these commands
 to enable the service on your server device: 
