@@ -16,17 +16,19 @@ to execute the shell script:**
 ```bash 
 chmod u+rwx pi.sh
 ```
-- This ill allow you to execute the file without issue
+- This will allow you to execute the file without issue
 
 - After downloading and runnig the script using the following command: `. pi.sh` or `./pi.sh`
     - If you chose the last option you will need to change directories into "DBD2" like this:
     `cd DBD2` abd then you should be good to go!
-
+#### What will be downloaded with this shell script?
+- This will download all the **needed binary files for the ASUS Dongle**, all **C 
+progams**, the **Makefile**, **README**, and **btstart.service** 
 > **note: you have to be a root/super user in order to recreate the environment**
 
 - use the following command: `sudo -i`
 
-## updateing your raspberry pi
+## Updateing your raspberry pi
 
 - update your device using the following:
 
@@ -226,4 +228,39 @@ pair 58:11:22:62:56:E3
 - With the new client and server programs you will be able to send messages constantly between devices
     - As the project goes on I will be able to use pure bleutooth commuication between devices to maintain 
     a low profile
+## Server Auto Execution of Server Program 
+- Making the `server2` prorgam execute once the server boots will be very useful
+because this will allow the attacker to have **pure bluetoooth connections** between the clinet and server, thus
+making the attack to be low profile
+- This very useful when you do not want to connect to a network to `SSH` into the pi 
+- To achieve this, you will need to move the btstart.service to the `/etc/systemd/system/`
+directoy as `root` 
+    - This will allow the device to run the server program on boot! 
+- Here is the command you would want to run to move the `.service` file:
+```bash 
+sudo su 
+mv /home/pi/DBD2/server2 /etc/systemd/system/
+```
+- Once you have sucessfully moved the file you can then run these commands
+to enable the service on your server device: 
+```bash 
+sudo systemctl daemon-reload
+sudo systemctl enable btstart.service
+sudo systemctl start btstart.service
+```
+- If you wish to see if your bt.start service is running properly run this command: 
+```bash
+sudo systemctl status btstart.service
+```
+- And then if you restart the server, wait for it to boot, and then run the ./client2
+program you can automatically connect to the server without having to `SSH` into the server!
+
+
+
+
+
+
+
+
+
 
