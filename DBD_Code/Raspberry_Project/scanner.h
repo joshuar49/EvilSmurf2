@@ -43,23 +43,15 @@ char (*scanner())[18]
         if (hci_read_remote_name(sock, &(ii+i)->bdaddr, sizeof(name),
             name, 0) < 0)
         strcpy(name, "[unknown]");
-		strcpy(ar1[i], addr);
-		printf("%s  %s\n", addr, name);
+                strcpy(ar1[i], addr);
+                printf("%s  %s\n", addr, name);
     }
-	printf("Printing the contents of the array !\n\n");
-	for (int i = 0; i < 4; i++){
-		printf("%s\n", ar1[i]);
+        printf("Printing the contents of the array !\n\n");
+        for (int i = 0; i < 4; i++){
+                printf("%s\n", ar1[i]);
     }
-	printf("End of loop\n");
-	return ar1;
+        printf("End of loop\n");
+        return ar1;
     free( ii );
     close( sock );
-}
-
-int main()
-{
-	printf("Calling the function\n");
-	scanner();
-
-	return 0;
 }
