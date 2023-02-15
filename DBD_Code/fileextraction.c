@@ -8,8 +8,8 @@
 int main() {
     struct sockaddr_rc addr = { 0 };
     int s, status;
-    char dest[18] = "58:11:22:62:56:CE"; // replace with the address of the target device
-    char file_name[256] = "pi.sh"; // replace with the known file name
+    char dest[18] = "MAC Address"; // replace with the address of the target device
+    char file_name[256] = "known_file"; // replace with the known file name
     char buffer[1024];
     FILE *fp;
 
@@ -33,7 +33,7 @@ int main() {
     status = write(s, file_name, sizeof(file_name));
 	printf("Properly wrote to host\n");
     // receive the file
-    fp = fopen("pi.sh", "w+");
+    fp = fopen("known_file", "w+");
 	if (fp == NULL){
 		printf("ERROR: couldnt open fie!\n");
 		close(s);
