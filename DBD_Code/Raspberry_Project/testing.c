@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include "scanner.h"
+
 
 int main()
 {
@@ -15,6 +17,8 @@ int main()
 		printf("%s\n", ar1[i]);
 	}
 	printf("End of loop\n");
+	printf("Calling Scanner rn\n");
+	scanner();
 	return 0;
 }
 
