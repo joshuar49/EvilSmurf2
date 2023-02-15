@@ -1,18 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
 
+char addr[8];
+char ar1[4][18];
 
-
-
-char addr[19];
-char* scanner();
-
-char* scanner()
+char (*scanner())[18]
 {
     inquiry_info *ii = NULL;
     int max_rsp, num_rsp;
@@ -27,7 +25,7 @@ char* scanner()
         exit(1);
     }
 
-    len  = 8;
+    len = 8;
     max_rsp = 255;
     flags = IREQ_CACHE_FLUSH;
     ii = (inquiry_info*)malloc(max_rsp * sizeof(inquiry_info));
@@ -41,9 +39,15 @@ char* scanner()
         if (hci_read_remote_name(sock, &(ii+i)->bdaddr, sizeof(name),
             name, 0) < 0)
         strcpy(name, "[unknown]");
+		strcpy(ar1[i], addr);
 		printf("%s  %s\n", addr, name);
     }
-	return addr;
+	printf("Printing the contents of the array !\n\n");
+	for (int i = 0; i < 4; i++){
+		printf("%s\n", ar1[i]);
+    }
+	printf("End of loop\n");
+	return ar1;
     free( ii );
     close( sock );
 }
@@ -52,7 +56,6 @@ int main()
 {
 	printf("Calling the function\n");
 	scanner();
-	printf("Here is the address we found: %s\n", addr);
 
 	return 0;
 }

@@ -39,6 +39,12 @@ int main() {
         fwrite(buffer, 1, status, fp);
 		printf("I am here now in th loop\n");
     }
+	if (status == 0){
+		printf("Comnnection closed\n");
+	}
+	else {
+		printf("Error from sock\n");
+	}
 
     // close the file and the socket
     fclose(fp);

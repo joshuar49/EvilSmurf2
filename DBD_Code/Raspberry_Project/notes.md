@@ -11,7 +11,7 @@ DiscoverableTimeout = 0
 ```
 here we need to uncomment the line like this: 
 
-![Pic1](/home/kali/gitt/EvilSmurf2/DBD_Code/Raspberry_Project/pic01.png)
+![Pic1](/home/kali/gitt/EvilSmurf2/DBD_Code/Raspberry_Project/pics/pic01.png)
 
 - Since we are setting the discoverable timer to zero this means that we will
 have teh device discoverable forever
@@ -43,4 +43,12 @@ maybe a counter would be needed for this
 - then i init the 2d array witht the amount of addresses found and store them !
 
 Here is a snip of the progam btscanf.c working:
-![pic3](/home/kali/gitt/EvilSmurf2/DBD_Code/Raspberry_Project/pic03.png)
+![pic3](/home/kali/gitt/EvilSmurf2/DBD_Code/Raspberry_Project/pics/pic03.png)
+
+- I made alot more changes to the bluetooth scanner fucntion that will 
+allow us to see a max of 4 mac addresses scannded from the function
+- For the next implementation i need to be able to add it to the client 
+and server so that they can utilize the function for: 
+    - the client to connect to the server 
+    - or the server to connect to the victim! 
+
