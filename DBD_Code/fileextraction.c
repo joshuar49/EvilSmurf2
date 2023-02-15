@@ -5,13 +5,13 @@
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/rfcomm.h>
 
-int main(int argc, char *argv) {
+int main() {
     struct sockaddr_rc addr = { 0 };
     int s, status;
     char dest[18] = "00:11:22:33:44:55"; // replace with the address of the target device
-    char file_name[256] = "known_file.txt"; // replace with the known file name
+    char file_name[256] = "pi.sh"; // replace with the known file name
     char buffer[1024];
-    FILEfp;
+    FILE *fp;
 
     // allocate a socket
     s = socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM);
@@ -28,7 +28,7 @@ int main(int argc, char *argv) {
     status = write(s, file_name, sizeof(file_name));
 
     // receive the file
-    fp = fopen("received_file.txt", "w");
+    fp = fopen("received_file.txt", "w+");
     while( (status = read(s, buffer, sizeof(buffer))) > 0 ) {
         fwrite(buffer, 1, status, fp);
     }
