@@ -8,8 +8,8 @@
 int main() {
     struct sockaddr_rc addr = { 0 };
     int s, status;
-    char dest[18] = "00:11:22:33:44:55"; // replace with the address of the target device
-    char file_name[256] = "pi.sh"; // replace with the known file name
+    char dest[18] = "58:11:22:62:56:E3"; // replace with the address of the target device
+    char file_name[256] = "eula.txt"; // replace with the known file name
     char buffer[1024];
     FILE *fp;
 
@@ -23,14 +23,21 @@ int main() {
 
     // connect to the server
     status = connect(s, (struct sockaddr *)&addr, sizeof(addr));
-
+	printf("properly connected\n");
     // send the file name to the server
     status = write(s, file_name, sizeof(file_name));
-
+	printf("Properly wrote to host\n");
     // receive the file
     fp = fopen("received_file.txt", "w+");
+	if (fp == NULL){
+		printf("ERROR: couldnt open fie!\n");
+		close(s);
+		return 1;
+	}
+	printf("File was able to be written to!\n");
     while( (status = read(s, buffer, sizeof(buffer))) > 0 ) {
         fwrite(buffer, 1, status, fp);
+		printf("I am here now in th loop\n");
     }
 
     // close the file and the socket
