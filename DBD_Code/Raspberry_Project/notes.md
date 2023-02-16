@@ -51,4 +51,7 @@ allow us to see a max of 4 mac addresses scannded from the function
 and server so that they can utilize the function for: 
     - the client to connect to the server 
     - or the server to connect to the victim! 
+#### Plans for the rest of the week
 
+1. I need to make both the client and server call the btscanner func 
+2. Add bluesnarffing features to the programs
