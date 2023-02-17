@@ -55,3 +55,16 @@ and server so that they can utilize the function for:
 
 1. I need to make both the client and server call the btscanner func 
 2. Add bluesnarffing features to the programs
+
+### Date: 02/16/2023
+
+- Made some updates to the shell script
+    - Immma think of some new things to add to it to make it 
+    look more interesting like a logo or something
+- I need to make some changes to the README to incorporate the the new files 
+and where they need to be located
+- Ill see if someone in the team can help me spell check the readme for the 
+presentation for next week 
+- After this i need to add the btscan function to the main client and
+server program to assign mac addresses
+- Lastly i need to record a new video for the presentation
