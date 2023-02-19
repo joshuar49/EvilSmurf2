@@ -1,8 +1,10 @@
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/rfcomm.h>
+#include "scanner.h"
 
 #define BUF 1024
 
@@ -10,9 +12,14 @@ int main(int argc, char **argv)
 {
     struct sockaddr_rc addr = { 0 }; // creates the structure for THIS device
     int s, status;
-    char dest[18] = "58:11:22:62:56:E3"; // mac of the PI machine
-    char buf[BUF];// inits the buffer 
+    char dest[18]; // mac of the PI machine
+    char (*temp)[18];
+	char buf[BUF];
 
+	printf("\tStarting the scanning function\n");
+	temp = scanner();
+	strcpy(dest, *temp);
+	printf("Connecting to: %s\n", dest);
     s = socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM);
         // same as server it screate the socket with these parameters same as in the server
 

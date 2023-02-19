@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <string.h>
+#include "scanner.h"
 
 // I need to learn about jag arrays
 int main()
 {
-	char ar1[4][18];
-	int inp;
-
+	//char ar1[4][18];
+	//int inp;
+	char (*str)[18];
+	char dest[18];
+/*
 	for (int i = 0; i < 4;i++){
 		printf("enter a string: ");
 		scanf("%s",ar1[i]);
@@ -41,5 +44,9 @@ int main()
 			break;
 	}
 	printf("End of loop\n");
+	*/
+	printf("Calling the bt function!\n");
+	str = scanner();
+	printf("Printing the string here: %s\n", *str);
 	return 0;
 }

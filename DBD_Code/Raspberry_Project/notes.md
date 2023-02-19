@@ -68,3 +68,26 @@ presentation for next week
 - After this i need to add the btscan function to the main client and
 server program to assign mac addresses
 - Lastly i need to record a new video for the presentation
+
+### Date: 02/19/23 
+
+- My main goal for this weekend was to better modify the bluetooth scanner fucntion 
+so that it is able to scan for devices, append those devices to an array, and have the function return 
+the index of the array chosen by the user
+
+- Now that i have accomplished this through cases and finding ways for a function to return the array
+i then started to implement the function in the client program so that it is able to scan for devices so 
+that the user can specify which server they want to connect to
+    - This will be needed later so that a user can connect to muliple bluetooth servers so that they can 
+    connect to them and then commence attacks on the target devices that the server will use! 
+
+- All the changes have been made to the client code and i will begin to make changes to the server soon 
+    - This was that if the cleint wants the server to attack the 3rd device scanned by the function, 
+    we will be able to choose which one the user wants to attack 
+- I will look into this a bit later in the week but so far i am happy with the new feature! 
+
+**Here is a snip of it all working:**
+
+[pic05](/home/kali/gitt/EvilSmurf2/DBD_Code/Raspberry_Project/pics/pic04.png)
+
+- I cant wait to show this off in the demo

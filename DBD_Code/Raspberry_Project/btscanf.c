@@ -11,7 +11,7 @@ char (*scanner())[18];
 char addr[8];
 char ar1[4][18];
 char ar2[4][1024]; // This will be used for the device names 
-				   // but im tempted to just add all this in a "Jaggaed Array"
+// but im tempted to just add all this in a "Jaggaed Array"
 
 char (*scanner())[18]
 {
@@ -83,3 +83,6 @@ int main()
 	printf("Connecting to: %s\n", *conar1);
 	return 0;
 }
+
+
+
