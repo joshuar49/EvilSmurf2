@@ -88,6 +88,6 @@ that the user can specify which server they want to connect to
 
 **Here is a snip of it all working:**
 
-[pic05](/home/kali/gitt/EvilSmurf2/DBD_Code/Raspberry_Project/pics/pic04.png)
+[pic05](https://github.com/joshuar49/EvilSmurf2/blob/main/DBD_Code/Raspberry_Project/pics/pic04.png)
 
 - I cant wait to show this off in the demo
