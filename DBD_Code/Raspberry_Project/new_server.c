@@ -1,8 +1,10 @@
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/rfcomm.h>
+#include "scanner.h"
 
 #define BUF 1024
 
@@ -13,6 +15,7 @@ int main(int argc, char **argv)
     int s, client, items_read;
     socklen_t opt = sizeof(cli_addr);// this is used to hold the size of the client tp be passed right 
     char buf[BUF]; // inits the buffer to be this size, will change if needed
+	char (*con)[18];
 
     s = socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM); //Thi will make the socket
 
@@ -41,7 +44,7 @@ int main(int argc, char **argv)
         memset(buf, 0, sizeof(buf));
                 // sets the blocks of memory in the buffer to be ZERO
         items_read = read(client, buf, sizeof(buf)); // reads characters from the client
-        if( items_read <= 0 ) {
+        if (items_read <= 0 ) {
             perror("Didn't Get Message"); 
                         //stops since nothing has been sent or encounters an error
             break;
@@ -49,11 +52,16 @@ int main(int argc, char **argv)
         printf("Message Received: %s\n", buf);
 
         // send a message
-        if(write(client, buf, sizeof(buf)) < 0) {
-            perror("Couldn't Send Message");
-                        // error control
+        if (write(client, buf, sizeof(buf)) < 0) {
+            perror("Couldn't Send Message");// error control
             break;
         }
+		if (strncmp(buf, "scan", 4) == 0){
+		printf("Starting to scan\n");
+		con = scanner();
+		printf("works");
+		}
+
     }
 
     close(client); // important to close the client and the socket we made!!!!
