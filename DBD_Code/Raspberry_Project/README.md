@@ -6,60 +6,57 @@
 ```bash 
 wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/README.md
 ```
-- this file will help you recreate the environment that i have
-    - this involves downloading the pi.sh from our github page using the following command:
+- This shell script will downlaod all the needed files for the project:
 ```bash 
 wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/pi.sh
 ```
 > **NOTE: once you have downloaded the `pi.sh` script you will then need to run this command
 to execute the shell script:**
 ```bash 
-chmod u+rwx pi.sh
+chmod +x pi.sh
 ```
 - This will allow you to execute the file without issue
 
 - After downloading and runnig the script using the following command: `. pi.sh` or `./pi.sh`
     - If you chose the last option you will need to change directories into "DBD2" like this:
-    `cd DBD2` abd then you should be good to go!
+    `cd DBD2` and then you should be good to go!
 #### What will be downloaded with this shell script?
 - This will download all the **needed binary files for the ASUS Dongle**, all **C 
-progams**, the **Makefile**, **README**, and **btstart.service** 
-> **note: you have to be a root/super user in order to recreate the environment**
+progams**, the **Makefile**, **README**, **btstart.service**, and a bunch more files that will be used later
+> **Note: you have to be a root/super user in order to recreate the environment**
 
-- use the following command: `sudo -i`
+- Use the following command: `sudo -i`
+- And if not just use sudo before executing any of the commands
+## Updateing your Raspberry Pi
 
-## Updateing your raspberry pi
-
-- update your device using the following:
+- Update your device using the following:
 
 ```bash
 sudo apt update && sudo apt full-upgrade
 ```
-- reboot your device once its been fully upgraded using the following command: `sudo reboot` 
-    - this will limit errors from occuring and making the process smoother
+- Reboot your device once its been fully upgraded using the following command: `sudo reboot` 
+    - This will limit errors from occuring and making the process smoother
 
 
-#### download the needed bluetooth related files
+#### Download the Needed Bluetooth Related Files
 
-- once you logged back into your device become a root user using: `sudo -i`
-
-- then we need to download the needed bluetooth related files to compile our c files:
+- We need to download the needed bluetooth related files to compile our C files:
 ```bash
 sudo apt-get install bluez && sudo apt-get install bluez libbluetooth-dev
 ```
 ```bash
 sudo apt-get install libbluetooth-dev
 ```
-## Disabling onboard bluetooth and relocation of needed binary files
+## Disabling Onboard Bluetooth and Relocation of Needed Binary Files
 
-- you will then need to move the following files to the following locations with these commands:
+- You will then need to move the following files to the following locations with these commands:
 ```bash
 sudo cp rtl8761bu_fw.bin /lib/firmware/rtl_bt
 
 sudo cp rtl8761bu_config.bin  /lib/firmware/rtl_bt
 ```
 
-- once this is done we will need to disable our on board bluetooth in order to utilize the asus bluetooth dongle
+- Once this is done we will need to disable our on board bluetooth in order to utilize the asus bluetooth dongle
     - to do this we need to edit the `/boot/config.txt` file, to do this we use your prefered text editor but i shall use neovim!:
 
 ```bash
