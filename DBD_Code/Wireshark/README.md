@@ -4,6 +4,8 @@ Wireshark is commonly used to capture packets and contain them in a .pcap file f
 
 > NOTE: This repository automates the process described above by checking for .pcap files and streamlining the process of processing the hex values and storing results
 
+### Configuration 
+
 1. Create a directory to store script, .pcap file, and output file. I simply named mine ```WiresharkAnalysis```. Keep it empty for now and cd into it. 
 
 ```bash
@@ -31,6 +33,8 @@ chmod -x streamline.sh
 ![image](https://user-images.githubusercontent.com/107435186/220528640-67ada54c-768e-4bc6-ba68-5e33d7d7c79c.png)
 
 7. The default time that the shell scrip refreshes to check for the file is 120 seconds, or 2 minutes. This may be changed to the user's preference by replacing the value next to the ```sleep``` command (the recommended time being the length that the user spends saving the previous files, then running and saving another Wireshark file).
+
+### Execution
 
 8. Run the shell script
 
