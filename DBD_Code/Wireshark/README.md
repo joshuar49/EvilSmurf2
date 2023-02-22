@@ -41,11 +41,14 @@ chmod -x streamline.sh
 9. Ensure that the strings are found in the ```output.txt``` file and the ```filter.txt``` file (if you've enabled the grep command). You will also be given an confirmation of the Wireshark file's existence in the terminal, or a notice otherwise.
 
 - Execution of shell script and resulting files
+
 ![image](https://user-images.githubusercontent.com/107435186/220529104-8a66cd59-25df-437c-99a5-c6029f2fba54.png)
 
 - All outputs
+
 ![image](https://user-images.githubusercontent.com/107435186/220529246-5f232ffa-40f3-410d-9165-53fd478add03.png)
 
 - Filtered output
+
 ![image](https://user-images.githubusercontent.com/107435186/220529330-2564fb73-daa7-4cfa-9c24-34d791f116b8.png)
 
