@@ -59,7 +59,6 @@ int main(int argc, char **argv)
 		if (strncmp(buf, "scan", 4) == 0){
 		printf("Starting to scan\n");
 		con = scanner();
-		printf("works");
 		}
 
     }

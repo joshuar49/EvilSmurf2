@@ -16,7 +16,7 @@ int main(int argc, char **argv)
     char (*temp)[18];
 	char buf[BUF];
 
-	printf("\tStarting the scanning function\n");
+	printf("\tStarting to Scan for Devices\n");
 	temp = scanner();
 	strcpy(dest, *temp);
 	printf("Connecting to: %s\n", dest);
