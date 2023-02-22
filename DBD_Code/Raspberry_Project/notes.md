@@ -91,3 +91,61 @@ that the user can specify which server they want to connect to
 [pic05](https://github.com/joshuar49/EvilSmurf2/blob/main/DBD_Code/Raspberry_Project/pics/pic04.png)
 
 - I cant wait to show this off in the demo
+
+### Date: 02/21/23 
+
+- There are a lot of small things that i need to do such as: 
+    1. I need to FULLY check the readme for any spelling errors
+    2. I need to add where to include the new files of:
+        - rc.local, and another file 
+    3. I would like to make a video but maybe i mgith save it for next time 
+    4. I then need to see if i can fix the server scanner function 
+        - I might have to make this into a different program or edit the origonal one  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
