@@ -12,7 +12,7 @@ int main(){
     int num_f = 0;
 
     //Open desired directory
-    f_info = opendir(".")
+    f_info = opendir(".");
 
     //Exception for no-existent directory
     if (f_info == NULL){
