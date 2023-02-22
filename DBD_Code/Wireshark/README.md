@@ -4,7 +4,7 @@ Wireshark is commonly used to capture packets and contain them in a .pcap file f
 
 > NOTE: This repository automates the process described above by checking for .pcap files and streamlining the process of processing the hex values and storing results
 
-1. Create a directory to store script, .pcap file, and output file. I simply named mine ```bash WiresharkAnalysis```. Keep it empty for now and cd into it. 
+1. Create a directory to store script, .pcap file, and output file. I simply named mine ```WiresharkAnalysis```. Keep it empty for now and cd into it. 
 
 ```bash
 mkdir WiresharkAnalysis
@@ -20,11 +20,11 @@ wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Wireshark/streaml
 ```bash
 chmod -x streamline.sh
 ```
-5. Next, open your Wireshark application and run a scan on devices exchanging Bluetooth packets. Save the file as ```bash packets.pcap``` in the ```bash WiresharkAnalysis``` directory.
+5. Next, open your Wireshark application and run a scan on devices exchanging Bluetooth packets. Save the file as ```packets.pcap``` in the ```WiresharkAnalysis``` directory.
 
 > NOTE: packets.pcap is the default name of the file the shell script is looking for. You may change the name in ```bash streamline.sh``` by opening the script in your preferred text editor and manually changing the name, but make sure it matches the one you assign to the saved Wireshark file!
 
-6. If you are looking for or expecting a specific string in the processed hex values, uncomment the grep command found in ```bash streamline.sh``` and replace the STRING value with a value of your choice, as the instructions indicate.
+6. If you are looking for or expecting a specific string in the processed hex values, uncomment the grep command found in ```streamline.sh``` and replace the STRING value with a value of your choice, as the instructions indicate.
 
 7. Run the shell script
 
@@ -32,4 +32,4 @@ chmod -x streamline.sh
 ./streamline.sh
 ```
 
-8. Ensure that the strings are found in the ```bash output.txt``` file and the ```bash filter.txt``` file (if you've enabled the grep command). You will also be given an confirmation of the Wireshark file's existence in the terminal, or a notice otherwise.
+8. Ensure that the strings are found in the ```output.txt``` file and the ```filter.txt``` file (if you've enabled the grep command). You will also be given an confirmation of the Wireshark file's existence in the terminal, or a notice otherwise.
