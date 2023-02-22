@@ -1,6 +1,6 @@
 #!/bin/bash
 
-filename=client_and_server_message.pcap
+filename=packets.pcap
 
 while true
 do
