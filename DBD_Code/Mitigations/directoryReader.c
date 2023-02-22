@@ -10,9 +10,12 @@ int main(){
     DIR *f_info;
     struct dirent *in_dir;
     int num_f = 0;
+	char* dir_name;
 
     //Open desired directory
-    f_info = opendir(".");
+	printf("Please enter your directory path that holds all your .pcap files: \n");
+	scanf("%s", dir_name);
+    f_info = opendir(dir_name);
 
     //Exception for no-existent directory
     if (f_info == NULL){
