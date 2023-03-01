@@ -34,11 +34,11 @@ chmod -x streamline.sh
 
 6. Configure the directory where your SavedPCAP is in the shell script (line 8). Replce "Directory" with your directory. This will ensure that the saved .pcap files will make their way to the correct folder
 
-7. If you are looking for or expecting a specific string in the processed hex values, uncomment the grep command found in ```streamline.sh``` and replace the "hello" value with a value of your choice, as the instructions indicate.
+7. If you are looking for or expecting a specific string in the processed hex values, uncomment the grep command found in ```streamline.sh``` (line 10) and replace the "hello" value with a value of your choice, as the instructions indicate.
 
-![image](https://user-images.githubusercontent.com/107435186/220528640-67ada54c-768e-4bc6-ba68-5e33d7d7c79c.png)
+8. The default time that the shell scrip refreshes to check for the file is 120 seconds, or 2 minutes. This may be changed to the user's preference by replacing the value next to the ```sleep``` command (line 10). It is recommended to not make the time too short to save computing power.
 
-8. The default time that the shell scrip refreshes to check for the file is 120 seconds, or 2 minutes. This may be changed to the user's preference by replacing the value next to the ```sleep``` command (the recommended time being the length that the user spends saving the previous files, then running and saving another Wireshark file).
+![Wireshark3](https://user-images.githubusercontent.com/107435186/222220746-f2e386bf-4ea3-49a8-99de-8a7cd9623a3c.PNG)
 
 ### Execution
 
@@ -49,4 +49,11 @@ chmod -x streamline.sh
 ```
 
 10. Ensure that the strings are found in the ```output.txt``` file and the ```filter.txt``` file (if you've enabled the grep command). Also make sure the .pcap file is now in SavedPCAP instead of WiresharkAnalysis.
+
+- WiresharkAnalysis Output
+![Wireshark4](https://user-images.githubusercontent.com/107435186/222220941-5d2817c8-499d-4902-b882-eb9e539f0799.PNG)
+
+- SavedPCAP Output
+![Wireshark5](https://user-images.githubusercontent.com/107435186/222221022-076961bc-2e33-402e-b2c6-4db629584ae5.PNG)
+
 
