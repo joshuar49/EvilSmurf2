@@ -208,23 +208,26 @@ int bluesnarfer(struct opt options) {// takes int a structure, in practice this 
         if ((ctl = socket(AF_BLUETOOTH, SOCK_RAW, BTPROTO_RFCOMM)) < 0)
                 fprintf(stderr,
                         "bluesnarfer: Can't open RFCOMM control socket");
+		// error handling for socket 
 
         //fprintf(stderr, "bluesnarfer: calling bt_rfcomm(ctl, options.bd_addr, "
         //                "options.channel)\n");
-        if (!(fd = bt_rfcomm(ctl, options.bd_addr, options.channel)))
+        if (!(fd = bt_rfcomm(ctl, options.bd_addr, options.channel))) // this is a function !
                 fprintf(stderr,
                         "bluesnarfer: unable to create rfcomm connection\n");
-
+		
         //fprintf(stderr, "bluesnarfer: calling switch_cmd(fd, options)\n");
-        if (switch_cmd(fd, options) < 0)
+        if (switch_cmd(fd, options) < 0) // this is also a fcuntion i need to understand it better later 
                 fprintf(stderr, "bluesnarfer: send_cmd failed\n");
 
-        bt_rfcomm_rel();
+        bt_rfcomm_rel(); // once all checks are done we need to call the bt_rfcomm_rel function
+						 // this is also user defined! 
 
-        return 0;
+        return 0; // closes the bluesnarfer function !
 }
 
-void usage(char *bin) {
+void usage(char *bin) { //THIS DOESNT NEED TO BE COVERED! 
+		// this just prints out how to use the program
 
         fprintf(stderr,
                 "bluesnarfer, version %s -\n"
@@ -247,13 +250,13 @@ void usage(char *bin) {
                 VERSION, bin);
         exit(0);
 }
-
+// this function will take in a bluetooth string address ! prob from the struct!
 int bt_get_remote_name(char *str_bdaddr) {
 
-        struct hci_conn_info_req cr;
-        int dd, cc, handler;
-        char name[248];
-        bdaddr_t bdaddr;
+        struct hci_conn_info_req cr; // this creates a struct called cr 
+        int dd, cc, handler;// NOTE this is the function that defines dd, cc, and handler
+        char name[248]; // makes an arrya name
+        bdaddr_t bdaddr; // makes a srtuct of the bluetooth address being passed into the function
 
         if ((dd = hci_open_dev(device)) < 0) {
 
