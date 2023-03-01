@@ -253,29 +253,57 @@ void usage(char *bin) { //THIS DOESNT NEED TO BE COVERED!
 // this function will take in a bluetooth string address ! prob from the struct!
 int bt_get_remote_name(char *str_bdaddr) {
 
-        struct hci_conn_info_req cr; // this creates a struct called cr 
+        struct hci_conn_info_req cr; // this creates a struct called cr but the srtuct is found in the hci.h file
+		//
         int dd, cc, handler;// NOTE this is the function that defines dd, cc, and handler
         char name[248]; // makes an arrya name
         bdaddr_t bdaddr; // makes a srtuct of the bluetooth address being passed into the function
+		// This is mainly used to represent a bluetooth address
+		// this used for alot of things such as discovery, connections, and data transfer 
 
-        if ((dd = hci_open_dev(device)) < 0) {
-
+        if ((dd = hci_open_dev(device)) < 0) { // hci_open_dev is used for establishing a connection to the device! 
+		// if the return is less than zero then the connection could not be established
                 fprintf(stderr, "bluesnarfer: hci_open_dev : %s\n",
                         strerror(errno));
-                return -1;
+                return -1;// closes the prog
+				// the rest of this just prints the error to the user!
         }
 
-        str2ba(str_bdaddr, &bdaddr);
+        str2ba(str_bdaddr, &bdaddr);// takes the string bluetooth address and changes it to a 
+		// bluetooth address that bluetooth can use and is stored at the address of "bdaddr"
 
         memcpy(&cr.bdaddr, &bdaddr, sizeof(bdaddr_t));
         cr.type = ACL_LINK;
+		// memcpy is used to copy the memory blocks from one location to another
+		// here it is used to copy the contents from bdaddr to cd.bdaddr
+		// in this case we are giving cr.type attribute the value of ACL_LINK
+		// ACL_LINK is defined in the hci.h header file 
+		// it stands for async connection less link and is used for sending and receving data 
+		// this alows for varaible length packets to be sent unlike the other link types
+		//
+		//
 
         if (ioctl(dd, HCIGETCONNINFO, (unsigned long)&cr) < 0) {
+		// IOctl or inp out control is used communicate between devices and device kernes 
+		// in addition it gets paramaters from hardware devices 
+		//
+		// here the socket descriptor or DD or device descriptor 
+		// the second param is a constant which gets information from a bluetooth device 
+		// the third parameter is a pointer to the stuct "cr" defined earlier 
+		//
+		//the functio will then return a value if the call was successfull or not  
+		//if sucessful the address of the struct will have info about the bluetooth connection
+		//
+		//else it wont pass informaion to the struct 
+		//in this case it would return a values LESS THAN ZERO 
+		}
 
                 if ((cc = hci_create_connection(dd, &bdaddr,
                                                 htobs(HCI_DM1 | HCI_DH1), 0, 0,
                                                 (void *)&handler, 25000)) < 0) {
-
+				// this function takes in dd which holds the device connection, takes the bluetooth address from str2ba,
+				// htobs function is used to convert numbers to bluetooth byte order 
+				//
                         fprintf(stderr,
                                 "bluesnarfer: hci_create_connection failed\n");
                         hci_close_dev(dd);
