@@ -51,9 +51,11 @@ chmod -x streamline.sh
 10. Ensure that the strings are found in the ```output.txt``` file and the ```filter.txt``` file (if you've enabled the grep command). Also make sure the .pcap file is now in SavedPCAP instead of WiresharkAnalysis.
 
 - WiresharkAnalysis Output
+
 ![Wireshark4](https://user-images.githubusercontent.com/107435186/222220941-5d2817c8-499d-4902-b882-eb9e539f0799.PNG)
 
 - SavedPCAP Output
+
 ![Wireshark5](https://user-images.githubusercontent.com/107435186/222221022-076961bc-2e33-402e-b2c6-4db629584ae5.PNG)
 
 
