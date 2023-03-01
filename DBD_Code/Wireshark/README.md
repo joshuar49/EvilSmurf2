@@ -6,7 +6,11 @@ Wireshark is commonly used to capture packets and contain them in a .pcap file f
 
 ### Configuration 
 
-1. Create a directory to store script, .pcap file, and output file. I simply named mine ```WiresharkAnalysis```. Keep it empty for now and cd into it. 
+1. Create a directory to store .pcap files after processing them. I named mine ```SavedPCAP```. Keep it empty
+```bash
+mkdir SavedPCAP
+```
+2. Create a directory to store the bash script, .pcap file (temporarily), and output files. I simply named mine ```WiresharkAnalysis```. Keep it empty for now and cd into it. 
 
 ```bash
 mkdir WiresharkAnalysis
@@ -22,37 +26,36 @@ wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Wireshark/streaml
 ```bash
 chmod -x streamline.sh
 ```
-5. Next, open your Wireshark application and run a scan on devices exchanging Bluetooth packets. Save the file as ```packets.pcap``` in the ```WiresharkAnalysis``` directory.
+5. Next, open your Wireshark application and run a scan on devices exchanging Bluetooth packets. Save the file with name of your choice in the ```WiresharkAnalysis``` directory.
+
+> NOTE: The only naming convention that you MUST follow aside from the default for file names is to NOT include a space. 
 
 ![image](https://user-images.githubusercontent.com/107435186/220528273-04fc0fc4-c550-4603-b3a2-ac919eb8e262.png)
 
-> NOTE: packets.pcap is the default name of the file the shell script is looking for. You may change the name in ```bash streamline.sh``` by opening the script in your preferred text editor and manually changing the name, but make sure it matches the one you assign to the saved Wireshark file!
+6. Configure the directory where your SavedPCAP is in the shell script (line 8). Replce "Directory" with your directory. This will ensure that the saved .pcap files will make their way to the correct folder
 
-6. If you are looking for or expecting a specific string in the processed hex values, uncomment the grep command found in ```streamline.sh``` and replace the "hello" value with a value of your choice, as the instructions indicate.
+7. If you are looking for or expecting a specific string in the processed hex values, uncomment the grep command found in ```streamline.sh``` (line 10) and replace the "hello" value with a value of your choice, as the instructions indicate.
 
-![image](https://user-images.githubusercontent.com/107435186/220528640-67ada54c-768e-4bc6-ba68-5e33d7d7c79c.png)
+8. The default time that the shell scrip refreshes to check for the file is 120 seconds, or 2 minutes. This may be changed to the user's preference by replacing the value next to the ```sleep``` command (line 10). It is recommended to not make the time too short to save computing power.
 
-7. The default time that the shell scrip refreshes to check for the file is 120 seconds, or 2 minutes. This may be changed to the user's preference by replacing the value next to the ```sleep``` command (the recommended time being the length that the user spends saving the previous files, then running and saving another Wireshark file).
+![Wireshark3](https://user-images.githubusercontent.com/107435186/222220746-f2e386bf-4ea3-49a8-99de-8a7cd9623a3c.PNG)
 
 ### Execution
 
-8. Run the shell script
+9. Run the shell script
 
 ```bash
 ./streamline.sh
 ```
 
-9. Ensure that the strings are found in the ```output.txt``` file and the ```filter.txt``` file (if you've enabled the grep command). You will also be given an confirmation of the Wireshark file's existence in the terminal, or a notice otherwise.
+10. Ensure that the strings are found in the ```output.txt``` file and the ```filter.txt``` file (if you've enabled the grep command). Also make sure the .pcap file is now in SavedPCAP instead of WiresharkAnalysis.
 
-- Execution of shell script and resulting files
+- WiresharkAnalysis Output
 
-![image](https://user-images.githubusercontent.com/107435186/220529104-8a66cd59-25df-437c-99a5-c6029f2fba54.png)
+![Wireshark4](https://user-images.githubusercontent.com/107435186/222220941-5d2817c8-499d-4902-b882-eb9e539f0799.PNG)
 
-- All outputs
+- SavedPCAP Output
 
-![image](https://user-images.githubusercontent.com/107435186/220529246-5f232ffa-40f3-410d-9165-53fd478add03.png)
+![Wireshark5](https://user-images.githubusercontent.com/107435186/222221022-076961bc-2e33-402e-b2c6-4db629584ae5.PNG)
 
-- Filtered output
-
-![image](https://user-images.githubusercontent.com/107435186/220529330-2564fb73-daa7-4cfa-9c24-34d791f116b8.png)
 
