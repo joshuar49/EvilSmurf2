@@ -9,8 +9,8 @@
 
 char (*scanner())[18];
 char addr[8];
-char ar1[4][18];
-char ar2[4][1024]; // This will be used for the device names 
+char ar1[10][18];
+char ar2[10][1024]; // This will be used for the device names 
 // but im tempted to just add all this in a "Jaggaed Array"
 
 char (*scanner())[18]
@@ -46,7 +46,7 @@ char (*scanner())[18]
 		strcpy(ar1[i], addr);
 		printf("%s  %s\n", addr, name);
     }
-	for (int i = 0; i < 4; i++){
+	for (int i = 0; i < 10; i++){
 		i++;
 		printf("%i\t%s\n",i , ar1[i-1]);
 		i--;
@@ -66,6 +66,24 @@ char (*scanner())[18]
 		case 4:
 			printf("You have picked the fourth device: %s\n", ar1[inp-1]);
 			break;
+		case 5:
+			printf("You have picked the first device: %s\n", ar1[inp-1]);
+			break;
+		case 6:
+			printf("You have picked the second device: %s\n", ar1[inp-1]);
+			break;
+		case 7:
+			printf("You have picked the third device: %s\n", ar1[inp-1]);
+			break;
+		case 8:
+			printf("You have picked the fourth device: %s\n", ar1[inp-1]);
+			break;
+		case 9:
+			printf("You have picked the first device: %s\n", ar1[inp-1]);
+			break;
+		case 10:
+			printf("You have picked the second device: %s\n", ar1[inp-1]);
+			break;	
 		default:
 			printf("You didnt pick a valid number try again!\n");
 	}
