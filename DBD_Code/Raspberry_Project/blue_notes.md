@@ -169,8 +169,35 @@ struct rfcomm_dev_req {
 
 
 #### What is device and where is it inited 
-- device is inited in bt_rfcomm fucntion in bsnarf
 
+- device is inited in bt_rfcomm fucntion in bsnarf
+    - the specific fucntion would be the `int rw_cmd(FILE *fd, struct opt options)` 
+
+## How to get SMS messages in bluesnarf.c !!!
+
+- All this information was found in the `rw_cmd()` function in the program 
+
+- For this program to read the contents of the phones phone book 
+    - This achieved through this command being ran on in the phonebook 
+    - `snprintf(buffer, 32, "AT+CPBR=%d\r\n", options.N_MIN)`
+- What the function does is it iterates through the range provided by the user N_MIN and N_MAX 
+
+**Therefore** 
+
+- this can also be accomplished through SMS as well
+
+- These commands being enetered are called AT commands that can do various things with the information 
+on a cell phone 
+
+- For instance, to read all the recieved and un read messages in the device through this command 
+    - We would to set the modem of the device to text mode which was already done earlier in the function, 
+    - Then we can run this command `AT+CMGL="REC UNREAD"` or `AT+CMGL="REC READ"`
+- These commands print out all the messages on the phone to the user.
+- In addition there are also capabilities to send SMS messages as well!
+
+> **NOTE: all this information was found in this webiste:** 
+
+- https://m2msupport.net/m2msupport/sms-at-commands/#readsms
 
 
 
