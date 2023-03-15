@@ -7,23 +7,29 @@
 #define LIST    	0x5
 #define DDIAL   	0x6
 #define INFO    	0x7
+#define MESS		0x8
+#define SMSL        0x9
 
 #define RFCOMMDEV	"/dev/bluetooth/rfcomm/"
 #define DEFAULTPB	"AT+CPBS=\"ME\"\r\n"
+#define DEFAULTMS	"AT+CPMS=\"ME\"\r\n"
+
 
 struct opt {
 
-	int act;			/* action					*/
+	int act;			/* action		*/
 
 	char *bd_addr; 		/* bd_addr dst of snarf		*/
-	int  channel; 		/* rfcomm channel 			*/
+	int  channel; 		/* rfcomm channel 		*/
 
-	char *phonebook; 	/* memory storage phonebook	*/
+	char *phonebook;    /* memory storage phonebook	*/
+	char *smsbook;
+	
 	int N_MIN;			/* entry number MIN    		*/
-	int N_MAX; 			/* entry number MAX			*/
-	char *name;			/* name 					*/
+	int N_MAX; 			/* entry number MA*/
+	char *name;			/* name 		*/
 
-	char *custom_cmd;	 /* custom AT+CMD    		*/
+	char *custom_cmd;	/* custom AT+CMD    		*/
 
 } options;
 
@@ -40,9 +46,11 @@ char *parse(char *);
 char *rfcomm_read(FILE *, char *);
 
 int list_cmd(FILE *);
+int list_sms(FILE *);
 int bluesnarfer(struct opt);
 int custom_cmd(FILE *, char *);
 int bt_get_remote_name(char *);
 int rw_cmd(FILE *, struct opt options);
+int rw_sms(FILE *, struct opt options);
 int search_cmd(FILE *, struct opt );
 int switch_cmd(FILE *, struct opt );

@@ -200,6 +200,44 @@ on a cell phone
 - https://m2msupport.net/m2msupport/sms-at-commands/#readsms
 
 
+#### 2023-03-14
+
+I have made a lot of progress when i comes to stealing SMS messages from a device 
+
+- all that is left is to test the program 
+- To do this you need to establish a bt connection with the device first 
+- Then you need to disconnect them and run the bluensarfing program with this command: 
+    - `sudo ./bluesnarfer -b 7C:38:AD:3D:5A:EF -C 2 -i` 
+    - Here you would need to change the mac address of the device to the one you need to! 
+
+#### The six types of Message storage areas 
+
+> **All this can be found here: https://www.developershome.com/sms/cpmsCommand.asp**
+
+
+
+
+- SM. It refers to the message storage area on the SIM card.
+
+- ME. It refers to the message storage area on the GSM/GPRS modem or mobile phone. 
+Usually its storage space is larger than that of the message storage area on the SIM card.
+
+- MT. It refers to all message storage areas associated with the GSM/GPRS modem or mobile phone. 
+For example, suppose a mobile phone can access two message storage areas: "SM" and "ME". The "MT" 
+message storage area refers to the "SM" message storage area and the "ME" message storage area combined together.
+
+- BM. It refers to the broadcast message storage area. It is used to store cell broadcast messages.
+- SR. It refers to the status report message storage area. It is used to store status reports.
+- TA. It refers to the terminal adaptor message storage area.
+
+- all the information saved in the pointer is then set to the parse function ! 
+
+
+
+
+
+
+
 
 
 
