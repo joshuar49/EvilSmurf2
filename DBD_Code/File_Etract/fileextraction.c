@@ -36,16 +36,21 @@ int main() {
     printf("Properly connected to server\n");
     
     // send the file name to the server
+    
     status = write(s, file_name, sizeof(file_name));
+    if (status < 0) {
+    	perror("Error sending filename to server");
+    	close(s);
+    	return 1;
+    }
     printf("Properly wrote to host\n");
-    //needs filepath to help get the file from the server, the name is not enough to grasp the file
-    
-    
+        
     //receive the file
-    //creates file working on using file to extract other files from server to client
-    fp = fopen("file.txt", "w+");
+    //creates file within client but doesnt work on it in server
+    
+    fp = fopen(file_name, "w+");
 	if (fp == NULL){
-		printf("ERROR: couldnt open file!\n");
+		perror("ERROR: couldnt open file!");
 		close(s);
 		return 1;
 	}
@@ -81,4 +86,3 @@ int main() {
 
     return 0;
 }
-
