@@ -103,10 +103,13 @@ that the user can specify which server they want to connect to
         - I might have to make this into a different program or edit the origonal one  
 
 
+#### 03/23/2023
 
+**I need to do alot of things for this demo**
 
-
-
+- I need to implement the read file code from a server out put 
+- I need to see how i can execute terminal commands with c so that it prints the output of a 
+program to file that is then sent to the user 
 
 
 

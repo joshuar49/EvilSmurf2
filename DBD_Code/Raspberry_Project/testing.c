@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <string.h>
-#include "scanner.h"
 
 // I need to learn about jag arrays
 /*int main()
@@ -52,6 +49,7 @@
 }
 */
 
+/*
 #include <stdio.h>
 #include <bluetooth/hci.h>
 #include <bluetooth/hci_lib.h>
@@ -69,7 +67,7 @@ int main(void) {
 }
 
 
-/*int main()
+int main()
 {
 	int ret = 0;
 	int neg = !ret;
@@ -79,7 +77,7 @@ int main(void) {
 	}
 	return 0;
 }
-*/
+
 struct rfcomm_dev_req {
 	int16_t		dev_id;
 	uint32_t	flags;
@@ -87,4 +85,43 @@ struct rfcomm_dev_req {
 	bdaddr_t	dst;
 	uint8_t	channel;
 };
+*/ 
 
+/*
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main(void)
+{
+	printf("This is going to run the coomand to execute the program:\n");
+	system("sudo ./testing > out.txt");
+	printf("Print the contents of this progam has been sent over\n");
+
+	return EXIT_SUCCESS;
+}
+*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(void)
+{		
+	char file_name[256], buf[1024];
+
+	printf("Please enter the line steal file.txt: \n");
+	scanf("%[^\n]", buf);
+
+	sscanf(buf, "steal %[^\n]", file_name);
+	printf("Here is what the result will be: %s\n", file_name);
+
+	printf("Opening file now!\n");
+
+	FILE *file = fopen(file_name, "r");
+	if (file == NULL) {
+		printf("Couldnt open the file smh \n");
+		return EXIT_FAILURE;
+	}
+	return EXIT_SUCCESS;
+}
