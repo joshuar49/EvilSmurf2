@@ -113,7 +113,29 @@ program to file that is then sent to the user
 
 
 
+#### 03/26/2023
 
+I was finally able to access some SMS messages from my phone but i need to do alot more by testing and trouble shooting 
+
+In addition i need to plan out how i can do things for puretooth and bluesnarfing and merge them together !
+
+**Puretooth Taks** 
+
+-  organize the code a bit better 
+- see what else you can add like system commands that can then be use to exe the bluesnarf program 
+- Making the puretooth environemnt look alot pretty like what files it should have and other thigns that 
+can be incorporated in the program 
+
+**Bluesnarfing** 
+
+- See what changes when trying to print out SMS messages
+- make a PDU decoding function that decode the encoded message 
+- a way to incorporate this into puretooth 
+
+
+**Other Items** 
+
+- I need to make video and better diagrams for this project
 
 
 
