@@ -137,6 +137,13 @@ can be incorporated in the program
 
 - I need to make video and better diagrams for this project
 
+#### 03/27/2023
+
+**Plan for Today**
+
+- currently i need to have a better understanding of AT commands 
+- organize the code that is needed for SMS 
+- I need to re wrtie `rw_sms` so that i can test alot more things 
 
 
 

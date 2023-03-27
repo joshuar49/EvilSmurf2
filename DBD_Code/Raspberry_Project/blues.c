@@ -246,43 +246,7 @@ int bt_get_remote_name(char *str_bdaddr) {
 	return 0;
 }
 
-char *rfcomm_read(FILE *fp, char *send) {
 
-
-	int r, ret;
-	char *line;
-
-	long unsigned int line_size;
-
-	line = 0x00;
-	ret = line_size = 0;
-
-	while (1) {
-
-		r = getline(&line, &line_size, fp);
-		printf("Printing from RFCOMM with R: %s\n", line);
-
-		// reads from the file stream, and stores it in the line variable 
-
-		line[r - 1] = 0; // this is done to remove the newlin char placed by get line 
-		printf("Line MINUS r: %s\n", line);
-		
-		if (!strncmp(line, send, strlen(line)) && !ret) {
-			// used to check if LINE and SEND 
-			// if they match ret is not set and the desired command has been found 
-			// and ret is then set to 1 and contineus the loop to the next command 
-			ret = 1;
-			continue;
-		}
-
-		if (strncmp(line, send, strlen(line)) && ret){
-			printf("here is the line%s\n", line);
-			return line;
-		}
-	}
-
-	return 0x00;// returns nothing and clears the file for memory 
-}
 
 FILE *bt_rfcomm(int sock, char *str_bdaddr, int channel) {
 
@@ -681,23 +645,55 @@ int info_cmd(FILE *fd) {
 	return 0;
 }
 
+char *rfcomm_read(FILE *fp, char *send) {
 
+
+	int r, ret;
+	char *line;
+
+	long unsigned int line_size;
+
+	line = 0x00;
+	ret = line_size = 0;
+
+	while (1) {
+
+		r = getline(&line, &line_size, fp);
+		printf("Printing from RFCOMM with R: %s\n", line);
+
+		// reads from the file stream, and stores it in the line variable 
+
+		line[r - 1] = 0; // this is done to remove the newlin char placed by get line 
+		printf("Line MINUS r: %s\n", line);
+		
+		if (!strncmp(line, send, strlen(line)) && !ret) {
+			// used to check if LINE and SEND 
+			// if they match ret is not set and the desired command has been found 
+			// and ret is then set to 1 and contineus the loop to the next command 
+			ret = 1;
+			continue;
+		}
+
+		if (strncmp(line, send, strlen(line)) && ret){
+			printf("here is the line%s\n", line);
+			return line;
+		}
+	}
+
+	return 0x00;// returns nothing and clears the file for memory 
+}
 // ALL ABOUT SMS IS HERE 
 // READ WRITE SMS 
 int rw_sms(FILE *fd, struct opt options) {
     char buffer[128];
     char *ptr, *tptr;
-    FILE *ofp;
 
-    // Initialize a file pointer and open the file for writing
-    ofp = fopen("log.txt", "w");
     if (!options.smsbook) {
         fwrite(DEFAULTMS, strlen(DEFAULTMS), 1, fd);
         rfcomm_read(fd, DEFAULTMS);
     } else {
         printf("custom sms storage selected\n");
 
-        // Set the modem to PDU mode
         snprintf(buffer, 32, "AT+CMGF=0\r\n");
 		printf("This is going to be the the FIRST command and buffer: %s\n", buffer);
         if (!fwrite(buffer, strlen(buffer), 1, fd)) {
@@ -706,7 +702,6 @@ int rw_sms(FILE *fd, struct opt options) {
             return -1;
         }
 
-        // Read SMS messages in PDU mode
         snprintf(buffer, 32, "AT+CMGL=%d\r\n", 0);
 		printf("This is going to be the the SECOND command and buffer: %s\n", buffer);
         if (!fwrite(buffer, strlen(buffer), 1, fd)) {
@@ -717,7 +712,6 @@ int rw_sms(FILE *fd, struct opt options) {
 
         rfcomm_read(fd, buffer);
 
-        // Replace INDEX with the index number of the message you want to read
         snprintf(buffer, 32, "AT+CMGR=2\r\n");
 		printf("This is going to be the the THIRD command and buffer: %s\n", buffer);
         rfcomm_read(fd, buffer);
@@ -737,7 +731,6 @@ int rw_sms(FILE *fd, struct opt options) {
             return -1;
         }
 
-        // Replace 'parse' function with a PDU decoding function
         if (tptr = parse(ptr)) {
             printf("%s\n", tptr);
             free(tptr);
@@ -745,12 +738,6 @@ int rw_sms(FILE *fd, struct opt options) {
 
         options.N_MIN++;
     } while (options.N_MIN <= options.N_MAX);
-
-    // Make sure to close the file after writing to it
-    if (fclose(ofp) != 0) {
-        fprintf(stderr, "Failed to close log.txt: %s", strerror(errno));
-        return -1;
-    }
 
     return 0;
 }
