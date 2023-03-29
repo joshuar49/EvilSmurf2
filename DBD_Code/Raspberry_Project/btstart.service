@@ -2,7 +2,8 @@
 Description=This will be used to boot the bluetooth server.c prorgam on the server machine!
 
 [Service]
-ExecStart=/home/pi/DBD2/server2
+ExecStart=/home/pi/DBD2/server3
+WorkingDirectory=/home/pi/DBD2
 Restart=always
 User=root
 

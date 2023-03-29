@@ -153,7 +153,8 @@ Today is demo day there are alot of changes that need to be incorped to the demo
 - I also need to start adding bluesnarfing to the pi this would be the following: 
     - Adding a dir.sh thing for the program 
     - Adding all the functions needed for the program, it might be on the same program idk 
-    - this would need the system command and reading from the buffer! 
+    - this would need the system command and reading from the buffer!
+
 
 - I also need to either demo or show the SME hwo i found how to access SMS messages 
 
