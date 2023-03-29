@@ -714,8 +714,13 @@ int rw_sms(FILE *fd, struct opt options) {
 
         snprintf(buffer, 32, "AT+CMGR=2\r\n");
 		printf("This is going to be the the THIRD command and buffer: %s\n", buffer);
+
         rfcomm_read(fd, buffer);
 
+		snprintf(buffer, 32, "AT+CMGR=3\r\n");
+		printf("This is going to be the the FOURTH command and buffer: %s\n", buffer);
+
+        rfcomm_read(fd, buffer);
     }
 
     do {

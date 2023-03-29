@@ -145,7 +145,17 @@ can be incorporated in the program
 - organize the code that is needed for SMS 
 - I need to re wrtie `rw_sms` so that i can test alot more things 
 
+#### 03/29/2023
 
+Today is demo day there are alot of changes that need to be incorped to the demo 
+
+- I need to make a demo video for **Code merger with puretooth and some examples**
+- I also need to start adding bluesnarfing to the pi this would be the following: 
+    - Adding a dir.sh thing for the program 
+    - Adding all the functions needed for the program, it might be on the same program idk 
+    - this would need the system command and reading from the buffer! 
+
+- I also need to either demo or show the SME hwo i found how to access SMS messages 
 
 
 
