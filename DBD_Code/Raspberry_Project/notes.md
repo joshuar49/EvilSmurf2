@@ -157,7 +157,10 @@ Today is demo day there are alot of changes that need to be incorped to the demo
 
 
 - I also need to either demo or show the SME hwo i found how to access SMS messages 
+#### More on fixing rw_sms aparently if i am not in the else statement nothing will be abl to be sent to the devices
 
+- you need to write the commands and then send it to rfcomm read 
+- Imam test out to see it ti will work without the errror handling
 
 
 

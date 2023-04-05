@@ -14,11 +14,12 @@ int main(int argc, char **argv)
 {
 	struct sockaddr_rc serv_addr = { 0 }, cli_addr = { 0 };
 	// this is needed so that it can work properly with accpet!!!
-	int s, client, items_read;
+	int s, client, items_read, status; 
 	socklen_t opt = sizeof(cli_addr);// this is used to hold the size of the client tp be passed right 
 	char buf[BUF], file_name[256]; // inits the buffer to be this size, will change if needed
 	char (*con)[18];
 	FILE *fp;
+	char command_buf[256];
 
 	s = socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM); //Thi will make the socket
 
@@ -87,6 +88,18 @@ int main(int argc, char **argv)
 
 			return 0;
 		}
+		if (strncmp(buf, "exe", 3) == 0) {
+			printf("This is the contents of the buffer: %s\n", buf);
+			sscanf(buf, "exe %[^\n]", command_buf);
+			printf("Executing command: %s\n", command_buf);
+			status = system(command_buf);
+			if (status < 0) {
+				perror("Error executing command");
+			}
+			continue;
+		}
+
+		
 	}
 	close(client); // important to close the client and the socket we made!!!!
 	close(s);

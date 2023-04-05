@@ -246,7 +246,43 @@ int bt_get_remote_name(char *str_bdaddr) {
 	return 0;
 }
 
+char *rfcomm_read(FILE *fp, char *send) {
 
+
+	int r, ret;
+	char *line;
+
+	long unsigned int line_size;
+
+	line = 0x00;
+	ret = line_size = 0;
+
+	while (1) {
+
+		r = getline(&line, &line_size, fp);
+		printf("Response From Device: %s\n", line);
+
+		// reads from the file stream, and stores it in the line variable 
+
+		line[r - 1] = 0; // this is done to remove the newlin char placed by get line 
+//		printf("Line MINUS r: %s\n", line);
+		
+		if (!strncmp(line, send, strlen(line)) && !ret) {
+			// used to check if LINE and SEND 
+			// if they match ret is not set and the desired command has been found 
+			// and ret is then set to 1 and contineus the loop to the next command 
+			ret = 1;
+			continue;
+		}
+
+		if (strncmp(line, send, strlen(line)) && ret){
+//			printf("here is the line%s\n", line);
+			return line;
+		}
+	}
+
+	return 0x00;// returns nothing and clears the file for memory 
+}
 
 FILE *bt_rfcomm(int sock, char *str_bdaddr, int channel) {
 
@@ -645,104 +681,74 @@ int info_cmd(FILE *fd) {
 	return 0;
 }
 
-char *rfcomm_read(FILE *fp, char *send) {
 
-
-	int r, ret;
-	char *line;
-
-	long unsigned int line_size;
-
-	line = 0x00;
-	ret = line_size = 0;
-
-	while (1) {
-
-		r = getline(&line, &line_size, fp);
-		printf("Printing from RFCOMM with R: %s\n", line);
-
-		// reads from the file stream, and stores it in the line variable 
-
-		line[r - 1] = 0; // this is done to remove the newlin char placed by get line 
-		printf("Line MINUS r: %s\n", line);
-		
-		if (!strncmp(line, send, strlen(line)) && !ret) {
-			// used to check if LINE and SEND 
-			// if they match ret is not set and the desired command has been found 
-			// and ret is then set to 1 and contineus the loop to the next command 
-			ret = 1;
-			continue;
-		}
-
-		if (strncmp(line, send, strlen(line)) && ret){
-			printf("here is the line%s\n", line);
-			return line;
-		}
-	}
-
-	return 0x00;// returns nothing and clears the file for memory 
-}
 // ALL ABOUT SMS IS HERE 
 // READ WRITE SMS 
 int rw_sms(FILE *fd, struct opt options) {
     char buffer[128];
     char *ptr, *tptr;
+	int user_inp;
+	// I need to add a way to show the user what operation mode they wish to use for the phone:
+
+
 
     if (!options.smsbook) {
         fwrite(DEFAULTMS, strlen(DEFAULTMS), 1, fd);
         rfcomm_read(fd, DEFAULTMS);
     } else {
-        printf("custom sms storage selected\n");
+		/*
+		snprintf(buffer, 32, "AT+CPMS=%s\r\n", options.smsbook);
+		printf("This is going to be the the FIRST command and buffer: %s\n", buffer);
+		rfcomm_read(fd, buffer);
+*/
+        printf("Custom SMS storage selected\nLooking for available modes from the device\n");
 
-        snprintf(buffer, 32, "AT+CMGF=0\r\n");
+        snprintf(buffer, 32, "AT+CMGF=?\r\n");
 		printf("This is going to be the the FIRST command and buffer: %s\n", buffer);
         if (!fwrite(buffer, strlen(buffer), 1, fd)) {
             fprintf(stderr, "bluesnarfer: write, %s",
                     strerror(errno));
             return -1;
         }
-
-        snprintf(buffer, 32, "AT+CMGL=%d\r\n", 0);
-		printf("This is going to be the the SECOND command and buffer: %s\n", buffer);
+        rfcomm_read(fd, buffer);
+		printf("Please pick a mode from the available modes from the device by entering only a number: ");
+		scanf("%d[^\n]",&user_inp);
+		
+		snprintf(buffer, 32, "AT+CMGF=%d\r\n", user_inp);
+		printf("Sending mode to device: %s\n", buffer);
         if (!fwrite(buffer, strlen(buffer), 1, fd)) {
             fprintf(stderr, "bluesnarfer: write, %s",
                     strerror(errno));
             return -1;
         }
+		rfcomm_read(fd, buffer);
 
-        rfcomm_read(fd, buffer);
 
-        snprintf(buffer, 32, "AT+CMGR=2\r\n");
-		printf("This is going to be the the THIRD command and buffer: %s\n", buffer);
+		printf("Choose which messages you wish to display\n"
+				"Here are all the modes you can pick from: \n"
+				"Recieved and Unread: \t0\n"
+				"Recieved and Read: \t1\n"
+				"Stored and Unsent: \t2\n"
+				"Stored and Send: \t3\n"
+				"ALL types: \t\t4\n");
+		scanf("%d[^\n]",&user_inp);
 
-        rfcomm_read(fd, buffer);
-
-		snprintf(buffer, 32, "AT+CMGR=3\r\n");
-		printf("This is going to be the the FOURTH command and buffer: %s\n", buffer);
-
-        rfcomm_read(fd, buffer);
-    }
-
-    do {
-        snprintf(buffer, 32, "AT+CMGR=%d\r\n", options.N_MIN);
-
+        snprintf(buffer, 32, "AT+CMGL=%d\r\n", user_inp);
+		printf("Setting mode and sending to device: %s\n", buffer);
         if (!fwrite(buffer, strlen(buffer), 1, fd)) {
-            fprintf(stderr, "bluesnarfer: write, %s", strerror(errno));
+            fprintf(stderr, "bluesnarfer: write, %s",
+                    strerror(errno));
             return -1;
         }
-
-        if (!(ptr = rfcomm_read(fd, buffer))) {
-            fprintf(stderr, "bluesnarfer: rfcomm_read failed\n");
-            return -1;
-        }
-
-        if (tptr = parse(ptr)) {
-            printf("%s\n", tptr);
-            free(tptr);
-        }
-
-        options.N_MIN++;
-    } while (options.N_MIN <= options.N_MAX);
+        rfcomm_read(fd, buffer);
+		//Begining of the while loop to go through a fixed amount of messages from user min and max 
+		//
+		while (options.N_MIN <= options.N_MAX) {
+			snprintf(buffer, 32, "AT+CMGR=%d\r\n", options.N_MIN);
+			rfcomm_read(fd, buffer);
+			options.N_MIN++;
+		}
+    }
 
     return 0;
 }

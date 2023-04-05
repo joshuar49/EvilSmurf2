@@ -17,6 +17,7 @@ int main(int argc, char **argv)
     char (*temp)[18];
 	char buf[BUF], file_name[256];
 	FILE *fp;
+	char command_buf[256];
 
 	printf("\tStarting to Scan for Devices\n");
 	temp = scanner();
@@ -81,6 +82,12 @@ int main(int argc, char **argv)
 
 			return 0;
 		}
+		if (strncmp(buf, "exe", 3) == 0) {
+			printf("This is the contents of the buffer: %s\n", buf);
+//            sscanf(buf, "exe %[^\n]", command_buf);
+            printf("sending command : %s\n", command_buf);
+		}
+
 
         status = write(s, buf, strlen(buf));
                 // writes from the socket into the buf var with the length of the cahracers 
