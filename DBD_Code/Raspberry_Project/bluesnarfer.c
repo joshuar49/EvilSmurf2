@@ -245,8 +245,16 @@ void usage(char *bin) {
 			"-f name   : search \"name\" in phonebook address\n"
 			"-s TYPE   : select phonebook memory storage\n"
 			"-l        : list aviable phonebook memory storage\n"
-			"-i        : device info\n",
-			VERSION, bin);
+			"-i        : device info\n"
+			"-L        : Lists Types of Memory storage and SMS modes\n"
+			"-M Mode   : choose the SMS mode either text or PDU\n"
+			"-t TYPE   : select the type of messages you wanna extract\n\n"
+			"Here are all the MODES you can pick from: \n\n"
+			"Recieved and Unread: \t0\n"
+			"Recieved and Read: \t1\n"
+			"Stored and Unsent: \t2\n"
+			"Stored and Send: \t3\n"
+			"ALL types: \t\t4\n\n",VERSION, bin);
 	exit(0);
 }
 
@@ -707,24 +715,9 @@ int rw_sms(FILE *fd, struct opt options) {
         fwrite(DEFAULTMS, strlen(DEFAULTMS), 1, fd);
         rfcomm_read(fd, DEFAULTMS);
     } else {
-		/*
-		snprintf(buffer, 32, "AT+CPMS=%s\r\n", options.smsbook);
-		printf("This is going to be the the FIRST command and buffer: %s\n", buffer);
-		rfcomm_read(fd, buffer);
-		*/
+		
         printf("Custom SMS storage selected\nLooking for available modes from the device\n");
-		/*
-        snprintf(buffer, 32, "AT+CMGF=?\r\n"); // dont think i need this since its at -L now
-		printf("This is going to be the the FIRST command and buffer: %s\n", buffer);
-        if (!fwrite(buffer, strlen(buffer), 1, fd)) {
-            fprintf(stderr, "bluesnarfer: write, %s",
-                    strerror(errno));
-            return -1;
-        }
-        rfcomm_read(fd, buffer);
-		printf("Please pick a mode from the available modes from the device by entering only a number: ");
-		scanf("%d[^\n]",&user_inp); // wont need this since its going to be done through the command
-		*/
+		
 		snprintf(buffer, 32, "AT+CMGF=%d\r\n", options.mode);
 		printf("Sending mode to device: %s\n", buffer);
         if (!fwrite(buffer, strlen(buffer), 1, fd)) {
@@ -735,15 +728,7 @@ int rw_sms(FILE *fd, struct opt options) {
 		rfcomm_read(fd, buffer);
 
 		// this will be used in the help portion of the progam 
-		printf("Choose which messages you wish to display\n"
-				"Here are all the modes you can pick from: \n"
-				"Recieved and Unread: \t0\n"
-				"Recieved and Read: \t1\n"
-				"Stored and Unsent: \t2\n"
-				"Stored and Send: \t3\n"
-				"ALL types: \t\t4\n");
-		//scanf("%d[^\n]",&user_inp); // wont need this since its going to be a command now 
-
+		
         snprintf(buffer, 32, "AT+CMGL=%d\r\n", options.type);
 		printf("Setting mode and sending to device: %s\n", buffer);
         if (!fwrite(buffer, strlen(buffer), 1, fd)) {
