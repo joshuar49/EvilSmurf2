@@ -9,8 +9,6 @@
 #define INFO    	0x7
 #define MESS		0x8
 #define SMSL        0x9
-#define MODE        0x10
-#define TYPE        0x11
 
 #define RFCOMMDEV	"/dev/bluetooth/rfcomm/"
 #define DEFAULTPB	"AT+CPBS=\"ME\"\r\n"
