@@ -17,6 +17,4 @@ with open(file_name, 'r') as file:
             print(line.strip("\n"))
 
 
-#mess = input("Enter your pdu messaer here and hopefully we will see what happens: ")
 
-#print(decodeSmsPdu("00040B917130161876F00000321013218121610AD9771D242ED3E96539"))
