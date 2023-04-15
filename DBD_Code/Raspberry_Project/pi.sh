@@ -38,7 +38,14 @@ echo "Downloading DBD README.txt for convenience"
 wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/README.md
 
 echo "Downloading system files for configuration"
-wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/sys_files
+wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/sys_files/main.conf 
+wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/sys_files/rtl8761bu_fw.bin
+wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/sys_files/rtl8761bu_config.bin 
+wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/sys_files/rc.local 
+wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/sys_files/btstart.service 
+
+mkdir sys_files && mv btstart.service  main.conf  rc.local  rtl8761bu_config.bin  rtl8761bu_fw.bin sys_files/
+
 
 echo "Downloading needed Github files from Deep Blue Dev's Repo"
 

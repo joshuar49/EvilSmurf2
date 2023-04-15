@@ -3,6 +3,7 @@
 
 char (*scanner())[18];
 #endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
