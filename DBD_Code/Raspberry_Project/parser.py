@@ -1,4 +1,4 @@
-from gsmmodem.pdu import decodeSmsPdu
+from gsmmodem.pdu import decodeSmsPdu, encodeGsm7
 
 file_name = input("Enter your output file to clean here with the file extension: ")
 with open(file_name, 'r') as file:
@@ -15,6 +15,5 @@ with open(file_name, 'r') as file:
                     print(f'Response From Device: {text}')
         else:
             print(line.strip("\n"))
-
 
 

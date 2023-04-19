@@ -234,7 +234,16 @@ message storage area refers to the "SM" message storage area and the "ME" messag
 
 
 
+#### Here is an important picture!!!! 
 
+- i am currently trying to find a way to easily pair to a device with the reapsbery pi 
+the thing is i need a pass key and say yes to irt all the time now i wanna see if there is a way
+to accept the passkey without having to say yes 
+the best way to do this is to use this command:
+
+```bash
+sudo hciconfig hci0 piscan
+```
 
 
 

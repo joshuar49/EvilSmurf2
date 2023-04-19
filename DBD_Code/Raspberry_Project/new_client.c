@@ -5,7 +5,6 @@
 #include <sys/socket.h>
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/rfcomm.h>
-
 #include "scanner.h"
 
 #define BUF 1024

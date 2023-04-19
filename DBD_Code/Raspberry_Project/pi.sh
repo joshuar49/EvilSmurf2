@@ -52,13 +52,19 @@ echo "Downloading needed Github files from Deep Blue Dev's Repo"
 wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/new_client.c
 wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/new_server.c
 wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/Makefile
+
 wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/scanner.h 
-
-echo "Downloading scripts"
-wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/recon.sh
-wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/pair.sh
+wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/bluesnarfer.h 
+wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/bluesnarfer.c
 wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/parser.py
+wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/encode.py
 
+wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/host.sh
+wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/pair.sh
+wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/recon.sh
+wget https://github.com/joshuar49/EvilSmurf2/raw/main/DBD_Code/Raspberry_Project/dir.sh
 
-echo "Files from have been downloaded sucessfully!"
+mkdir scripts && mv host.sh pair.sh recon.sh dir.sh parser.py encode.py
+
+echo "Files from repo have been downloaded sucessfully!"
 

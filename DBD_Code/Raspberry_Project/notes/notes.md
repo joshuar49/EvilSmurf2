@@ -164,22 +164,65 @@ Today is demo day there are alot of changes that need to be incorped to the demo
 
 
 
+#### How to make a script run sudo no matter what
+
+
+This will be very important when i need to make a recon and a confim script for 
+bluetoothctl that way it can just recon for devices and then use confirm to connect to a new 
+device and pair to it
+
+**Here are the steps to doing this:** 
+
+1. `your_username ALL=(ALL) NOPASSWD: /path/to/your/script.sh`
+2. `sudo /path/to/your/script.sh`
+3. `sudo chown root:root /path/to/your/script.sh`
+4. `sudo chmod 755 /path/to/your/script.sh`
+
+I lied here are the steps that i took
+
+
+you need to edit the `/etc/sudoers` once this is done you will then be able to enter this line 
+at the end of the file: 
+
+1. you will need to get to this file by using the `sudo visudo`\ command
+
+```bash
+pi ALL=(ALL) NOPASSWD: /path/to/script
+```
+
+- There is only one more thing to try now
+
+**Recon Script Finsihed** 
+
+- I need to show others how to use this script! 
+
+**Here is how to use the recon.sh script** 
+
+
+- To use the recon.sh script you will need to do the following:
+
+
+```bash
+chmod +x recon.sh
+```
+
+- Then you can run the script like thi:
+
+sudo ./recon.sh <time_in_seconds> <file_output_name>
+
+**Pair script** 
 
 
 
+- often times we need to pair to a new host so that we can snarf them to do this we 
+need to use the an address from the recon script 
 
-
-
-
-
-
-
-
-
-
-
-
-
+- address will be a variable that the user needs to put in for the script! 
+- the command will look somethign along the lines of 
+    - pair btaddr
+- then the next thing that i would guess we need to do is spam yes as many times as needed i will do a quick 
+test run on the pi to see how long it takes
+- often then not i assume a good 5 times would be needed just incase we will do some testing
 
 
 

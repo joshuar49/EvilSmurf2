@@ -15,7 +15,7 @@ to execute the shell script:**
 ```bash 
 chmod +x pi.sh
 ```
-- This will allow you to execute the file without issue
+- This will allow you to execute the file
 
 - After downloading and runnig the script using the following command: `. pi.sh` or `./pi.sh`
     - If you chose the last option you will need to change directories into "DBD2" like this:
@@ -39,6 +39,7 @@ sudo apt update && sudo apt full-upgrade
 
 
 #### Download the Needed Bluetooth Related Files
+**THIS NEEDS SOME TOUCH UP WIT NEW DOWNLOADS** 
 
 - We need to download the needed bluetooth related files to compile our C files:
 ```bash
@@ -256,7 +257,7 @@ directoy as `root`
 - Here is the command you would want to run to move the `.service` file:
 ```bash 
 sudo su 
-mv /home/pi/DBD2/btstart.service /etc/systemd/system/
+mv /home/pi/DBD2/sys_files/btstart.service /etc/systemd/system/
 ```
 - Once you have sucessfully moved the file you can then run these commands
 to enable the service on your server device: 
@@ -271,6 +272,122 @@ sudo systemctl status btstart.service
 ```
 - And then if you restart the server, wait for it to boot, and then run the ./client2
 program you can automatically connect to the server without having to `SSH` into the server!
+
+
+## Recon, Autopairing, and Hostname changes 
+
+When it comes to bluetooth attacks we wnat to make everything automatic. For the pure bleutooth comminication 
+programs that we set up earlier we can only communicate through a buffer. 
+As a result, everything needs to be ran on terminal commands 
+
+**Here is a brief description of what the shell scripts do** 
+
+#### Recon.sh
+- Recon of what devices you want to attack is going to be vital for setting up your plan of attack 
+- The recon shell script works like this: 
+
+```bash
+./recon.sh time_in_seconds outputfile
+```
+```bash
+./recon.sh 30 out.txt
+```
+
+- This will run the script for 30 seconds and scans for bluetooth devices through the use of 
+bluetoothctl 
+- You can then use this information to check for bluetooth addresses that one would like to bluesnarf 
+
+#### Host.sh
+This will change the host name on the device and then reboot the system so that the changes take into account 
+
+**Here is how to use the scrypt:** 
+
+```bash
+sudo ./host.sh new_host_name
+```
+
+#### Pair.sh
+
+Once you have determined which device you want to attack it is nessa
+> **NOTE: you will need to install the expect tool on your raspberry pi with this command:**
+
+
+```bash
+sudo apt install expect
+```
+**Here is how to use the auto pair script:** 
+
+
+```bash
+./pair.sh bleutooth_address outputfile time_in_seconds
+```
+```bash
+./pair.sh 11:22:33:44:55:66 out.txt 60
+```
+
+#### Dir.sh 
+
+For some reason if bluesnarfer doesnt work, you would need to run this command so that you can store information 
+and data for your bluesnarfing device
+
+
+#### Parser.py 
+
+> **NOTE: it is important to know that you need to pip install the following** 
+
+- For the decoder portion of the parser to work you need to run this command
+
+```bash
+pip install python-gsmmodem-new
+```
+#### Encode.py 
+
+This will be able to encode a string so that you do not have to manualy encode the string to send 
+a text message through PDU mode
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
