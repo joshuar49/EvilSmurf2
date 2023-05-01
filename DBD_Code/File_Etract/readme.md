@@ -1,5 +1,5 @@
 # Bluetooth File Extraction Program
-- This directory will contin all the files for extracting a file using bluetooth!
+- This directory will contain all the files for extracting a file using bluetooth!
 - In able to run the Bluetooth File extraction Program a Server device, (Victim/Rasberry Pi), and a Client device, (Adversary/Virtual Machine), is needed.
 > **NOTE: To be able to successfully incorporate fileextraction is is important to run the server code on the victim device, prior to running the fileextraction.c code**
 - First step is to compile the server program within the server device
