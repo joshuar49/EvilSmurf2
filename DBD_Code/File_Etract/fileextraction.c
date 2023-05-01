@@ -8,8 +8,8 @@
 int main() {
     struct sockaddr_rc addr = { 0 };
     int s, status;
-    char dest[18] = "58:11:22:62:56:CE"; // replace with the address of the target device
-    char file_name[256] = "file.txt"; // replace with the known file name
+    char dest[18] = "input_macaddress"; // replace with the address of the target device
+    char file_name[256] = "input_filename"; // replace with the known file name
     char buffer[4096];
     memset(buffer, 0, sizeof(buffer)); //ensures the buffer is initalized to 0 and contains no garbage data
     FILE *fp;
